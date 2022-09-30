@@ -19,5 +19,5 @@ class Author(models.Model):
     email = models.EmailField(max_length=255, unique=True)
 
     def __str__(self):
-        return f"nick: {self.nick} | email: {self.email}"
+        return f"{self.nick} {self.email}"
         

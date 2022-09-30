@@ -1,0 +1,24 @@
+{% extends "maths/main.html" %}
+
+{% block title %}Maths list{% endblock %}
+
+{% block content %}
+   <ul>
+       {% for r in results %}
+           <li>{{ r }}</li>
+       {% endfor %}
+   </ul>
+
+   <form method="post">
+       {% csrf_token %}
+       <label for="value">value: </label>
+       <input type="text" name="value" id="value">
+       <br>
+       <label for="error">error: </label>
+       <input type="text" name="error" id="value">
+       <br>
+       <input type="submit" value="go">
+   </form>
+
+
+{% endblock %}

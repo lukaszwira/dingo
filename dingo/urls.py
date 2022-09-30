@@ -21,4 +21,5 @@ urlpatterns = [
     path('', include("maths.urls")),
     path('maths/', include("maths.urls")),
     path('sessions/', include("sessions.urls")),
+    path('posts/', include("posts.urls")),
 ]

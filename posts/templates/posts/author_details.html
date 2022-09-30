@@ -1,0 +1,23 @@
+{% extends "maths/main.html" %}
+
+{% block title %}Author details{% endblock %}
+
+{% block content %}
+   <table>
+    <ul>
+        {% for a in authors %}
+            {# <li><a href="/posts/author_details/{{ a:id }}">{{ p }}</a></li> #}
+            <li><a href='{% url "authors:author" a.id %}'>{{ p }}</a></li>
+        {% endfor %}
+    </ul>
+       <tr>
+           <th>nick</th>
+           <td>{{ post.nick }}</td>
+       </tr>
+       <tr>
+           <th>email</th>
+           <td>{{ post.email }}</td>
+       </tr>
+   </table>
+   <a href='{% url "posts:authors" %}'>back</a>
+{% endblock %}

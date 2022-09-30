@@ -1,0 +1,19 @@
+{% extends "maths/main.html" %}
+
+{% block title %}Authors list{% endblock %}
+
+{% block content %}
+   <ul>
+       {% for p in posts %}
+       {# <li><a href="/posts/authors_lists/{{ p:id }}">{{ p }}</a></li> #}
+       <li><a href='{% url "posts:authors" p.id %}'>{{ p }}</a></li>
+       {% endfor %}
+   </ul>
+
+   <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="go">
+    </form>
+
+{% endblock %}

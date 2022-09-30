@@ -1,0 +1,27 @@
+{% extends "maths/main.html" %}
+
+{% block title %}Post details{% endblock %}
+
+{% block content %}
+   <table>
+    <ul>
+        {% for p in posts %}
+            {# <li><a href="/posts/post_details/{{ p:id }}">{{ p }}</a></li> #}
+            <li><a href='{% url "posts:details" p.id %}'>{{ p }}</a></li>
+        {% endfor %}
+    </ul>
+       <tr>
+           <th>Title</th>
+           <td>{{ post.title }}</td>
+       </tr>
+       <tr>
+           <th>Content</th>
+           <td>{{ post.content }}</td>
+       </tr>
+       <tr>
+           <th>author</th>
+           <td>{{ post.author }}</td>
+       </tr>
+   </table>
+   <a href='{% url "posts:list" %}'>back</a>
+{% endblock %}
