@@ -6,7 +6,7 @@
    <ul>
        {% for p in posts %}
        {# <li><a href="/posts/authors_lists/{{ p:id }}">{{ p }}</a></li> #}
-       <li><a href='{% url "posts:authors" p.id %}'>{{ p }}</a></li>
+       <li><a href='{% url "posts:author" p.id %}'>{{ p }}</a></li>
        {% endfor %}
    </ul>
 

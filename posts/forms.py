@@ -19,6 +19,7 @@ class PostForm(forms.Form):
 class AuthorForm(forms.Form):
     nick = forms.CharField(required=False)
     email = forms.EmailField(required=False)
+    
 
     def clean(self):
         cleaned_data = super().clean()

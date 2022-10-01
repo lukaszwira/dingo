@@ -46,26 +46,24 @@ def authors_list(request):
         form = AuthorForm(data=request.POST)
 
         if form.is_valid():
-            author = Post.objects.get(pk=int(form.cleaned_data['author']))
             data = form.cleaned_data.copy()
-            data['author'] = author
-            Post.objects.create(**data)
+            Author.objects.create(**data)
 
     form = AuthorForm()
-    author = Author.objects.all()
+    authors = Author.objects.all()
     return render(
         request=request,
         template_name="posts/author.html",
         context={
-            "nick": author,
+            "author": authors,
             "form": form,
         }   
     )
 
 def author_details(request, id):
-    nick = Author.objects.get(id=id)
+    author = Author.objects.get(id=id)
     return render(
         request=request,
         template_name="posts/author_details.html",
-        context={"author": nick}
+        context={"author": author}
     )
