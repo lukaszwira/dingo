@@ -1,3 +1,4 @@
+from cgitb import reset
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib import messages
@@ -87,34 +88,65 @@ def math_details(request, id):
         context={"math": math}
     )
 
-
 def results_list(request):
-    if request.method == "POST":
-        form = ResultForm(data=request.POST)
+   if request.method == "POST":
+       form = ResultForm(data=request.POST)
 
-        if form.is_valid():
-            if form.cleaned_data['error'] == '':
-                form.cleaned_data['error'] = None
-            Result.objects.get_or_create(form.cleaned_data)
-            messages.add_message(
-                request,
-                messages.SUCCESS,
-                "Utworzono nowy Result!!"
-            )
-        else:
-            messages.add_message(
-                request,
-                messages.ERROR,
-                form.errors['__all__']
-            )
+       if form.is_valid():
+           form.save()
+           if form.cleaned_data['error'] == '':
+               form.cleaned_data['error'] = None
+           Result.objects.get_or_create(form.cleaned_data)
+           messages.add_message(
+               request,
+               messages.SUCCESS,
+               "Utworzono nowy Result!!"
+           )
+       else:
+           messages.add_message(
+               request,
+               messages.ERROR,
+               form.errors['__all__']
+           )
 
-    form = ResultForm()
-    results = Result.objects.all()
-    return render(
-        request=request,
-        template_name="maths/results.html",
-        context={
-            "results": results,
-            "form": form
-        }
-    )
+   form = ResultForm()
+   results = Result.objects.all()
+   return render(
+       request=request,
+       template_name="maths/results.html",
+       context={
+           "results": results,
+           "form": form
+       }
+   )
+
+#def results_list(request):
+#    results = Result.objects.all()
+#    form = ResultForm()
+#    if request.method == "POST":
+#        form = ResultForm(data=request.POST)
+#        if form.is_valid():
+#            form.save()
+#            messages.add_message(
+#                request,
+#                messages.SUCCESS,
+#                "Podaj tylko jedną z wartości",
+#
+#            )
+#        else:
+#            messages.add_message(
+#                request,
+#                messages.ERROR,
+#                "Nie podano żadnej wartości!"
+#            )
+#
+#    form = ResultForm()
+#    results = Result.objects.all()
+#    return render(
+#        request=request,
+#        template_name="maths/results.html",
+#        context={
+#            "results": results,
+#            "form": form
+#        }
+#    )
