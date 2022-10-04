@@ -1,4 +1,5 @@
 from cgitb import reset
+from multiprocessing.sharedctypes import Value
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib import messages
@@ -54,21 +55,21 @@ def mul(request, a, b):
 
 
 def div(request, a, b):
-    if int(b) == 0:
-        wynik = "Error"
+    a, b = int(a), int(b)
+    if int(b) == 0:  
         messages.add_message(request, messages.ERROR, "Dzielenie przez zero!")
+        wynik = "error"
     else:
-        wynik = a / int(b)
-        c = {"a": a, "b": b, "operacja": "/",
-             "wynik": wynik, "title": "dzielenie"}
-
-        result = Result.objects.get_or_create(value=wynik)[0]
-        Math.objects.create(operation='div', a=a, b=b, result=result)
-        return render(
-            request=request,
-            template_name="maths/operation.html",
-            context=c
-        )
+        wynik = int(a) / int(b)
+        c = {"a": a, "b": b, "operacja": "/", "wynik": wynik, "title": "dzielenie"}
+            
+    result = Result.objects.get_or_create(value=wynik)[0]
+    Math.objects.create(operation='div', a=a, b=b, result=result)
+    return render(
+        request=request,
+        template_name="maths/operation.html",
+        context=c
+    )
 
 
 def maths_list(request):
